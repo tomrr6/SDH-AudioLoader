@@ -67,3 +67,7 @@ export function setConfig(configObj: object) {
 export function dummyFunction(): Promise<any> {
   return server!.callPluginMethod("dummy_function", {});
 }
+
+export function getPrimaryDisplay(): Promise<string> {
+  return server!.callPluginMethod("getPrimaryDisplay", {});
+}

@@ -150,6 +150,10 @@ class Plugin:
     async def dummy_function(self) -> bool:
         return True
 
+    async def getPrimaryDisplay(self) -> str:
+        primary_monitor=Gdk.Display.get_primary_monitor(Gdk.Display.get_default())
+        return primary_monitor.get_model()
+
     async def get_sound_packs(self) -> list:
         return [x.to_dict() for x in self.soundPacks]
 

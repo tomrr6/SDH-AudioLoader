@@ -10,6 +10,7 @@ import {
   beforePatch,
   unpatch,
   SidebarNavigation,
+  TextField
 } from "decky-frontend-lib";
 import { VFC, useMemo, useEffect, useState } from "react";
 import { RiFolderMusicFill } from "react-icons/ri";
@@ -21,6 +22,8 @@ import {
   GlobalStateContextProvider,
   useGlobalState,
 } from "./state/GlobalState";
+
+let monitorName = "Monitor Name Not Found";
 
 const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
   const {
@@ -39,6 +42,16 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
   function dummyFuncTest() {
     python.resolve(python.dummyFunction(), setDummyResult);
   }
+
+  async function getPrimaryDisplay() {
+    const result = await python.getPrimaryDisplay();
+    return result;
+  }
+  
+  getPrimaryDisplay().then((value) => {
+    const str: string = value;
+    monitorName = str;
+  });
 
   useEffect(() => {
     dummyFuncTest();
@@ -159,6 +172,12 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
             Manage Packs
           </ButtonItem>
         </PanelSectionRow>
+      </PanelSection>
+      <PanelSection title="Debug">
+      <TextField
+          label="Display Name"
+          value={monitorName}
+          />
       </PanelSection>
     </div>
   );
